@@ -3,95 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formularz mObywatel</title>
+    <title>mDowód - Elektroniczny Dowód Osobisty</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: #f4f4f4;
+            position: relative;
         }
         .container {
-            width: 50%;
-            margin: 50px auto;
+            width: 60%;
+            margin: 20px auto;
             padding: 20px;
             background-color: white;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
         }
         h1 {
             text-align: center;
+            color: #2C3E50;
         }
-        input[type="text"], input[type="file"], input[type="date"], input[type="submit"], select {
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input[type="text"], input[type="date"], input[type="file"], select {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        label {
-            font-weight: bold;
+        .photo-container img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
         }
+        .button-container {
+            text-align: center;
+        }
+        input[type="submit"] {
+            background-color: #2C3E50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        input[type="submit"]:hover {
+            background-color: #34495E;
+        }
+        .result-container {
+            margin-top: 20px;
+        }
+
+        /* Flaga Polski - animacja falowania */
+        .flag {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 120px;
+            height: 80px;
+            background: linear-gradient(to right, white 50%, red 50%);
+            animation: waveFlag 4s ease-in-out infinite;
+        }
+
+        /* Animacja flagi (falowanie) */
+        @keyframes waveFlag {
+            0% {
+                transform: translateX(0) skewX(0deg);
+            }
+            25% {
+                transform: translateX(10px) skewX(5deg);
+            }
+            50% {
+                transform: translateX(0) skewX(0deg);
+            }
+            75% {
+                transform: translateX(-10px) skewX(-5deg);
+            }
+            100% {
+                transform: translateX(0) skewX(0deg);
+            }
+        }
+
+        /* Godło Polski - statyczne */
+        .coat-of-arms {
+            position: absolute;
+            top: 120px;
+            left: 20px;
+            width: 80px;
+            height: 80px;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Coat_of_arms_of_Poland.svg/1024px-Coat_of_arms_of_Poland.svg.png');
+            background-size: cover;
+        }
+
     </style>
 </head>
 <body>
+    <!-- Flaga Polski (falująca) -->
+    <div class="flag"></div>
+
+    <!-- Godło Polski (statyczne) -->
+    <div class="coat-of-arms"></div>
+
+    <!-- Formularz dowodu osobistego -->
     <div class="container">
-        <h1>Formularz mObywatel</h1>
-        <form id="mobywatelForm">
-            <label for="name">Imię i nazwisko:</label>
-            <input type="text" id="name" name="name" placeholder="Wpisz imię i nazwisko" required>
+        <h1>mDowód - Elektroniczny Dowód Osobisty</h1>
 
-            <label for="pesel">Numer PESEL:</label>
-            <input type="text" id="pesel" name="pesel" placeholder="Wpisz numer PESEL" required>
+        <form>
+            <label for="first-name">Imię</label>
+            <input type="text" id="first-name" name="first-name" required>
 
-            <label for="birthdate">Data urodzenia:</label>
-            <input type="date" id="birthdate" name="birthdate" required>
+            <label for="last-name">Nazwisko</label>
+            <input type="text" id="last-name" name="last-name" required>
 
-            <label for="photo">Wybierz zdjęcie:</label>
-            <input type="file" id="photo" name="photo" accept="image/*">
+            <label for="pesel">PESEL</label>
+            <input type="text" id="pesel" name="pesel" required>
 
-            <label for="country">Kraj pochodzenia:</label>
+            <label for="dob">Data Urodzenia</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="country">Kraj Pochodzenia</label>
             <select id="country" name="country" required>
                 <option value="Polska">Polska</option>
-                <option value="USA">USA</option>
-                <option value="Niemcy">Niemcy</option>
-                <option value="Francja">Francja</option>
-                <option value="Hiszpania">Hiszpania</option>
-                <!-- Możesz dodać więcej krajów -->
+                <option value="Inny">Inny</option>
             </select>
 
-            <input type="submit" value="Zatwierdź">
+            <label for="photo">Zdjęcie</label>
+            <input type="file" id="photo" name="photo" accept="image/*">
+
+            <div class="button-container">
+                <input type="submit" value="Zapisz dane">
+            </div>
         </form>
-        
-        <h2>Twoje dane:</h2>
-        <div id="result"></div>
+
+        <div class="result-container">
+            <h3>Podsumowanie:</h3>
+            <p><strong>Imię:</strong> <span id="result-first-name"></span></p>
+            <p><strong>Nazwisko:</strong> <span id="result-last-name"></span></p>
+            <p><strong>PESEL:</strong> <span id="result-pesel"></span></p>
+            <p><strong>Data Urodzenia:</strong> <span id="result-dob"></span></p>
+            <p><strong>Kraj Pochodzenia:</strong> <span id="result-country"></span></p>
+            <p><strong>Zdjęcie:</strong> <span id="result-photo"></span></p>
+        </div>
     </div>
 
     <script>
-        document.getElementById("mobywatelForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            // Pobranie danych z formularza
-            var name = document.getElementById("name").value;
-            var pesel = document.getElementById("pesel").value;
-            var birthdate = document.getElementById("birthdate").value;
-            var photo = document.getElementById("photo").files[0];
-            var country = document.getElementById("country").value;
-
-            // Generowanie URL dla zdjęcia
-            var photoURL = photo ? URL.createObjectURL(photo) : "";
-
-            // Tworzenie treści do wyświetlenia
-            var resultContent = `
-                <p><strong>Imię i nazwisko:</strong> ${name}</p>
-                <p><strong>Numer PESEL:</strong> ${pesel}</p>
-                <p><strong>Data urodzenia:</strong> ${birthdate}</p>
-                <p><strong>Kraj pochodzenia:</strong> ${country}</p>
-                ${photoURL ? `<p><strong>Zdjęcie:</strong> <img src="${photoURL}" alt="Zdjęcie" width="150"></p>` : ''}
-            `;
-
-            // Wyświetlenie wyników
-            document.getElementById("result").innerHTML = resultContent;
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('result-first-name').textContent = document.getElementById('first-name').value;
+            document.getElementById('result-last-name').textContent = document.getElementById('last-name').value;
+            document.getElementById('result-pesel').textContent = document.getElementById('pesel').value;
+            document.getElementById('result-dob').textContent = document.getElementById('dob').value;
+            document.getElementById('result-country').textContent = document.getElementById('country').value;
+            document.getElementById('result-photo').textContent = document.getElementById('photo').files[0] ? 'Załadowane' : 'Brak zdjęcia';
         });
     </script>
 </body>
