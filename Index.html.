@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mObywatel 2.0 – Projekt Edukacyjny</title>
+    <link rel="stylesheet" href="http://51.68.148.12/dowodyall/dowod_files/main.css">
+
+    <style>
+        /* Styl dla modala */
+        #warningModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-content h2 {
+            color: red;
+        }
+
+        .modal-content p {
+            font-size: 16px;
+        }
+
+        .modal-content button {
+            background: #014a93;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .modal-content button:hover {
+            background: #002d62;
+        }
+
+        /* Ukrycie treści strony do momentu akceptacji */
+        #pageContent {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Modal ostrzegawczy -->
+    <div id="warningModal">
+        <div class="modal-content">
+            <h2>⚠️ Uwaga! Projekt edukacyjny ⚠️</h2>
+            <p>Ta strona jest częścią szkolnego projektu edukacyjnego i nie służy do fałszowania dokumentów.</p>
+            <p>Prezentowany wygląd dowodu osobistego jest jedynie symulacją i nie ma żadnej mocy prawnej.</p>
+            <button onclick="closeWarning()">Rozumiem</button>
+        </div>
+    </div>
+
+    <!-- Główna zawartość strony -->
+    <div id="pageContent">
+        <header>
+            <a href="dashboard.html"><img src="http://51.68.148.12/dowodyall/dowod_files/leftarrow.svg" alt="leftarrow"></a>
+            <p>mDowód – Projekt edukacyjny</p>
+        </header>
+
+        <main>
+            <p class="czas">Czas: 20:32:33 15.05.2024</p>
+            <script src="http://51.68.148.12/dowodyall/dowod_files/timenew.js"></script>
+
+            <!-- Tutaj reszta Twojego kodu -->
+        </main>
+    </div>
+
+    <script>
+        function closeWarning() {
+            document.getElementById("warningModal").style.display = "none";
+            document.getElementById("pageContent").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
